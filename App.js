@@ -27,10 +27,6 @@ const App = () => {
   const [list, setList] = useState(['Useless Text', 'Useless Text']);
   const isDarkMode = useColorScheme() === 'dark';
 
-  // useEffect(() => {
-  //   document.title = `You clicked ${count} times`;
-  // });
-
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
     flex: 1,
