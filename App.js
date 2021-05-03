@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,7 +7,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,22 +17,34 @@ import {
   useColorScheme,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
-  const [text, onChangeText] = React.useState("Useless Text");
-  const onPress = () => setCount(prevCount => prevCount + 1);
+  const [text, setText] = useState('text');
+  const [list, setList] = useState(['Useless Text', 'Useless Text']);
   const isDarkMode = useColorScheme() === 'dark';
+
+  // useEffect(() => {
+  //   document.title = `You clicked ${count} times`;
+  // });
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
+
+  const filterList = list
+    .filter(s => s.includes(text))
+    .map((e, index) => {
+      return (
+        <Text key={index} style={[{fontSize: 18, margin: 10}]}>
+          {e}
+        </Text>
+      );
+    });
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -39,21 +52,24 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        />
-        <TouchableOpacity
-        style={styles.button}
-        >
-        <Text>+</Text>
-      </TouchableOpacity>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+        <View style={[{flexDirection: 'row', margin: 12}]}>
+          <TextInput
+            style={styles.input}
+            onChangeText={setText}
+            placeholder="text"
+          />
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              let listCopy = [...list];
+              listCopy.push(text);
+              setList(listCopy);
+            }}>
+            <Text>+</Text>
+          </TouchableOpacity>
         </View>
+
+        {filterList}
       </ScrollView>
     </SafeAreaView>
   );
@@ -78,13 +94,16 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
+    width: 270,
     borderWidth: 1,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#DDDDDD',
+    marginLeft: 12,
+    height: 40,
+    flex: 1,
   },
 });
 
