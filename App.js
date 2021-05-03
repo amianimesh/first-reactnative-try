@@ -53,6 +53,7 @@ const App = () => {
             style={styles.input}
             onChangeText={setText}
             placeholder="text"
+            value={text}
           />
           <TouchableOpacity
             style={styles.button}
@@ -60,6 +61,7 @@ const App = () => {
               let listCopy = [...list];
               listCopy.push(text);
               setList(listCopy);
+              setText('');
             }}>
             <Text>+</Text>
           </TouchableOpacity>
