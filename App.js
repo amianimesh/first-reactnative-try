@@ -98,6 +98,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: 270,
     borderWidth: 1,
+    backgroundColor:'lightgrey',
+    borderRadius: 10
   },
   button: {
     alignItems: 'center',
