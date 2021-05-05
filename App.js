@@ -23,8 +23,8 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
-  const [text, setText] = useState('text');
-  const [list, setList] = useState(['Useless Text', 'Useless Text']);
+  const [text, setText] = useState('');
+  const [list, setList] = useState([]);
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -48,39 +48,43 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <View style={[{flexDirection: 'row', margin: 12}]}>
-          <TextInput
-            style={styles.input}
-            onChangeText={setText}
-            placeholder="text"
-            value={text}
-          />
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              let listCopy = [...list];
-              listCopy.push(text);
-              setList(listCopy);
-              setText('');
-            }}>
-            <Text>+</Text>
-          </TouchableOpacity>
+        <View style={styles.separator}>
+          <View style={[{flexDirection: 'row', margin: 12, }]}>
+            <View style={[]}>
+            <TextInput
+              style={styles.input}
+              onChangeText={setText}
+              placeholder="Search"
+              value={text}
+            />
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                let listCopy = [...list];
+                listCopy.push(text);
+                setList(listCopy);
+                setText('');
+              }}>
+              <Text>+</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
+        <View>
         {filterList}
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: 1,
   },
   sectionDescription: {
     marginTop: 8,
